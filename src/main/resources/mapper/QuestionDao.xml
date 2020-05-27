@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--1 对多 。根据问题查询所有的选项 -->
+<mapper namespace="com.xj.dao.QuestionsDao">
+
+    <select id="list" resultMap="listmap">
+        select * from questions  where `status`=1 ORDER BY sortnum
+    </select>
+
+    <resultMap id="listmap" type="com.xj.entity.dto.QuestionDto">
+<!--        <id column="id" property="id" jdbcType="INTEGER" />-->
+        <result column="question" property="question" jdbcType="VARCHAR" />
+        <result column="correctAnswer" property="correctAnswer" jdbcType="INTEGER" />
+<!--        <result column="sortnum" property="sortnum" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="INTEGER" />-->
+
+        <!-- 集合 1对多 -->
+        <collection property="answers" column="id" select="selectAnswerByQid" ofType="String">
+
+        </collection>
+
+    </resultMap>
+
+    <select id="selectAnswerByQid" resultType="String">
+        select aname from answers where qid=#{id} and `status`=1 ORDER BY sortnum
+    </select>
+
+
+</mapper>
