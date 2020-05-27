@@ -10,5 +10,6 @@ import java.util.List;
 public interface QuestionsDao {
 
 
+    //显示所有问题
     List<QuestionDto> list();
 }
