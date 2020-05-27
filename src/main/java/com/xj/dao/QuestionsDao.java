@@ -11,5 +11,6 @@ public interface QuestionsDao {
 
 
     //显示所有问题
+    //我来修改了
     List<QuestionDto> list();
 }
